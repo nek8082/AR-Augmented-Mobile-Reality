@@ -5,7 +5,7 @@ using UnityEngine.XR.ARFoundation;
 
 public class ARController : MonoBehaviour
 {
-    public GameObject MyObject;
+    public GameObject robotObject;
     public ARRaycastManager RaycastManager;
     
     // Start is called before the first frame update
@@ -25,7 +25,7 @@ public class ARController : MonoBehaviour
 
             if (touches.Count > 0)
             {
-                GameObject.Instantiate(MyObject, touches[0].pose.position, touches[0].pose.rotation);
+                GameObject.Instantiate(robotObject, touches[0].pose.position, touches[0].pose.rotation);
             }
         }
     }

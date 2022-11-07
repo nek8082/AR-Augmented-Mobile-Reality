@@ -267,7 +267,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100124, guid: 535511bb156e7f54f83f305d96a1c4ce, type: 3}
       propertyPath: m_Name
-      value: MyObject
+      value: robotObject
       objectReference: {fileID: 0}
     - target: {fileID: 100124, guid: 535511bb156e7f54f83f305d96a1c4ce, type: 3}
       propertyPath: m_IsActive
@@ -937,7 +937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ac7d38125ca31a4dacd961bfa2fe5bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MyObject: {fileID: 845719445}
+  robotObject: {fileID: 845719445}
   RaycastManager: {fileID: 773190232}
 --- !u!4 &2146962055
 Transform:

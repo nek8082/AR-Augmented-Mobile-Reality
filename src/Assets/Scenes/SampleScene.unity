@@ -798,6 +798,8 @@ MonoBehaviour:
     type: 3}
   RaycastManager: {fileID: 773190232}
   amountOfRobots: 5
+  robotObjectNoAnimation: {fileID: 7014805866144470948, guid: 2ceed4c8199924e4cafd9a63e7929b23,
+    type: 3}
 --- !u!4 &2146962055
 Transform:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class ARController : MonoBehaviour
     public ARRaycastManager RaycastManager;
     public int amountOfRobots = 5;
     private List<RobotPosition> positions = new List<RobotPosition>();
+    public GameObject robotObjectNoAnimation;
     
     // Start is called before the first frame update
     void Start()
@@ -29,7 +30,7 @@ public class ARController : MonoBehaviour
             {
                 List<ARRaycastHit> touches = new List<ARRaycastHit>();
                 RaycastManager.Raycast(touch.position, touches, UnityEngine.XR.ARSubsystems.TrackableType.Planes);
-                
+
                 if (touches.Count > 0 && amountOfRobots > 0)
                 {
                     amountOfRobots = amountOfRobots - 1;
@@ -39,12 +40,17 @@ public class ARController : MonoBehaviour
                     positions.Add(new RobotPosition(savedRobot, posePosition, poseRotation));
                 } else if (touches.Count > 0)
                 {
-
-                    RobotPosition robot = positions[positions.Count - 1];
-                    positions.Remove(robot);
-                    if (robot != null)
+                    
+                    RaycastHit hit;
+                    Ray ray = Camera.main.ScreenPointToRay(touch.position);
+                    if (Physics.Raycast(ray, out hit))
                     {
-                        GameObject.Destroy(robot.gameObject);
+                        var hitCollider = hit.collider;
+                        var hitColliderGameObject = hitCollider.gameObject;
+                        if (hitCollider.CompareTag("robot"))
+                        {
+                            GameObject.Destroy(hitColliderGameObject);
+                        }
                     }
                 }
             }

@@ -34,25 +34,14 @@ public class ARController : MonoBehaviour
                 if (touches.Count > 0 && amountOfRobots > 0)
                 {
                     amountOfRobots = amountOfRobots - 1;
-                    Vector3 posePosition = touches[0].pose.position;
-                    Quaternion poseRotation = touches[0].pose.rotation;
-                    GameObject savedRobot = GameObject.Instantiate(robotObjectNoAnimation, posePosition, poseRotation);
-                    positions.Add(new RobotPosition(savedRobot, posePosition, poseRotation));
+                    positionRobotAndSavePositionInList(touches);
                 } else if (touches.Count > 0)
                 {
-                    
                     RaycastHit hit;
                     Ray ray = Camera.main.ScreenPointToRay(touch.position);
                     if (Physics.Raycast(ray, out hit))
                     {
-                        var hitCollider = hit.collider;
-                        var hitColliderGameObject = hitCollider.gameObject;
-                        if (hitCollider.CompareTag("robot"))
-                        {
-                            RobotPosition robotPosition = positions.Find(item => item.gameObject.Equals(hitColliderGameObject));
-                            GameObject.Instantiate(robotObject, robotPosition.posePosition, robotPosition.poseRotation);
-                            GameObject.Destroy(hitColliderGameObject);
-                        }
+                       changeRobotAnimation(hit);
                     }
                     else
                     {
@@ -61,6 +50,26 @@ public class ARController : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void changeRobotAnimation(RaycastHit hit)
+    {
+        var hitCollider = hit.collider;
+        var hitColliderGameObject = hitCollider.gameObject;
+        if (hitCollider.CompareTag("robot"))
+        {
+            RobotPosition robotPosition = positions.Find(item => item.gameObject.Equals(hitColliderGameObject));
+            GameObject.Instantiate(robotObject, robotPosition.posePosition, robotPosition.poseRotation);
+            GameObject.Destroy(hitColliderGameObject);
+        }
+    }
+
+    private void positionRobotAndSavePositionInList(List<ARRaycastHit> touches)
+    {
+        Vector3 posePosition = touches[0].pose.position;
+        Quaternion poseRotation = touches[0].pose.rotation;
+        GameObject savedRobot = GameObject.Instantiate(robotObjectNoAnimation, posePosition, poseRotation);
+        positions.Add(new RobotPosition(savedRobot, posePosition, poseRotation));
     }
 
     class RobotPosition

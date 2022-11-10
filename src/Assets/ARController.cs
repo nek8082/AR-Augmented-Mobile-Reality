@@ -36,7 +36,7 @@ public class ARController : MonoBehaviour
                     amountOfRobots = amountOfRobots - 1;
                     Vector3 posePosition = touches[0].pose.position;
                     Quaternion poseRotation = touches[0].pose.rotation;
-                    GameObject savedRobot = GameObject.Instantiate(robotObject, posePosition, poseRotation);
+                    GameObject savedRobot = GameObject.Instantiate(robotObjectNoAnimation, posePosition, poseRotation);
                     positions.Add(new RobotPosition(savedRobot, posePosition, poseRotation));
                 } else if (touches.Count > 0)
                 {
@@ -49,8 +49,14 @@ public class ARController : MonoBehaviour
                         var hitColliderGameObject = hitCollider.gameObject;
                         if (hitCollider.CompareTag("robot"))
                         {
+                            RobotPosition robotPosition = positions.Find(item => item.gameObject.Equals(hitColliderGameObject));
+                            GameObject.Instantiate(robotObject, robotPosition.posePosition, robotPosition.poseRotation);
                             GameObject.Destroy(hitColliderGameObject);
                         }
+                    }
+                    else
+                    {
+                        // Platziere Schild
                     }
                 }
             }
